@@ -58,7 +58,7 @@ function App() {
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <a href="#home" className="text-xl font-bold text-[var(--text)] flex items-center">
             <span className="mr-2 text-[var(--primary)]">Harshit</span> Yadav
-            <Sparkles className="ml-2 text-[var(--accent)]" size={18} />
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 text-[var(--accent)]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
           </a>
           
           {/* Desktop Navigation */}
@@ -111,7 +111,7 @@ function App() {
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <div className="inline-block px-4 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] font-medium mb-6 animate-fade-in">
-                <span>Machine Learning Engineer</span>
+                <span>AI/Machine Learning Engineer</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">
                 Hi, I'm <span className="text-[var(--primary)]">Harshit Yadav</span>
@@ -328,7 +328,7 @@ function App() {
               <div>
                 <div className="mb-8">
                   <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <Sparkles size={20} className="mr-2 text-[var(--primary)]" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-[var(--primary)]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
                     Libraries & ML Packages
                   </h3>
                   <div className="flex flex-wrap gap-3">
@@ -540,7 +540,7 @@ function App() {
           <div className="flex items-center justify-center mb-4">
             <a href="#home" className="text-xl font-bold text-[var(--text)] flex items-center">
               <span className="mr-2 text-[var(--primary)]">Harshit</span> Yadav
-              <Sparkles className="ml-2 text-[var(--accent)]" size={18} />
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 text-[var(--accent)]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
             </a>
           </div>
           <p className="text-[var(--text-light)] mb-4">
