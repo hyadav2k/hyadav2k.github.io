@@ -152,7 +152,7 @@ function App() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
                   <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    src="dp.jpeg" 
                     alt="Harshit Yadav" 
                     className="w-full h-full object-cover"
                   />
@@ -416,13 +416,6 @@ function App() {
                     alt="Deep Researcher" 
                     className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 w-full">
-                      <a href="#" className="px-4 py-2 bg-white/90 rounded-full text-sm font-medium text-[var(--text)] flex items-center justify-center w-full hover:bg-white transition-colors">
-                        View Project <ExternalLink size={14} className="ml-1" />
-                      </a>
-                    </div>
-                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">Deep Researcher</h3>
@@ -444,13 +437,6 @@ function App() {
                     alt="Medbot for Coronavirus" 
                     className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 w-full">
-                      <a href="#" className="px-4 py-2 bg-white/90 rounded-full text-sm font-medium text-[var(--text)] flex items-center justify-center w-full hover:bg-white transition-colors">
-                        View Project <ExternalLink size={14} className="ml-1" />
-                      </a>
-                    </div>
-                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">Medbot for Coronavirus</h3>
@@ -472,13 +458,6 @@ function App() {
                     alt="TweeSents" 
                     className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 w-full">
-                      <a href="#" className="px-4 py-2 bg-white/90 rounded-full text-sm font-medium text-[var(--text)] flex items-center justify-center w-full hover:bg-white transition-colors">
-                        View Project <ExternalLink size={14} className="ml-1" />
-                      </a>
-                    </div>
-                  </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">TweeSents</h3>
@@ -492,6 +471,28 @@ function App() {
                   </div>
                 </div>
               </div>
+              
+              <div className="project-card group">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    alt="SymPy" 
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">SymPy</h3>
+                  <p className="text-[var(--text-light)] mb-4">
+                    Designed, developed, and documented the DomainMatrix module, optimizing matrix operations for increased efficiency. Implemented new methods for Matrix, Core, Polys, Derivatives, and Integrals.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Python</span>
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Algorithms</span>
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Open Source</span>
+                  </div>
+                  <p className="text-xs text-[var(--text-light)]">Jan 2021 - Apr 2021</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -502,65 +503,24 @@ function App() {
             <h2 className="section-title">Get In Touch</h2>
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2">
-                  <div className="p-8 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] text-white">
-                    <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-                    <p className="mb-8">
-                      I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-                    </p>
-                    <div className="space-y-6">
-                      <a href="tel:+918290665684" className="flex items-center text-white hover:text-white/80 transition-colors">
-                        <Mail size={20} className="mr-3" />
-                        +91-8290665684
-                      </a>
-                      <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center text-white hover:text-white/80 transition-colors">
-                        <GitHub size={20} className="mr-3" />
-                        GitHub
-                      </a>
-                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center text-white hover:text-white/80 transition-colors">
-                        <Linkedin size={20} className="mr-3" />
-                        LinkedIn
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <div className="p-8">
-                    <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
-                    <form className="space-y-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-[var(--text-light)] mb-1">Name</label>
-                        <input 
-                          type="text" 
-                          id="name" 
-                          className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
-                          placeholder="Your name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-[var(--text-light)] mb-1">Email</label>
-                        <input 
-                          type="email" 
-                          id="email" 
-                          className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
-                          placeholder="Your email"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-[var(--text-light)] mb-1">Message</label>
-                        <textarea 
-                          id="message" 
-                          rows={4} 
-                          className="w-full px-4 py-2 border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent"
-                          placeholder="Your message"
-                        ></textarea>
-                      </div>
-                      <button 
-                        type="submit" 
-                        className="w-full px-6 py-3 gradient-button text-white rounded-lg font-medium"
-                      >
-                        Send Message
-                      </button>
-                    </form>
+                <div className="p-8 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] text-white">
+                  <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+                  <p className="mb-8">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                  </p>
+                  <div className="space-y-6">
+                    <a href="mailto:harshityadav2k@gmail.com" className="flex items-center text-white hover:text-white/80 transition-colors">
+                      <Mail size={20} className="mr-3" />
+                      harshityadav2k@gmail.com
+                    </a>
+                    <a href="https://github.com/hyadav2k" target="_blank" rel="noopener noreferrer" className="flex items-center text-white hover:text-white/80 transition-colors">
+                      <GitHub size={20} className="mr-3" />
+                      GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/harshit-yadav-ab9626190/" target="_blank" rel="noopener noreferrer" className="flex items-center text-white hover:text-white/80 transition-colors">
+                      <Linkedin size={20} className="mr-3" />
+                      LinkedIn
+                    </a>
                   </div>
                 </div>
               </div>
@@ -582,13 +542,13 @@ function App() {
             &copy; {new Date().getFullYear()} Harshit Yadav. All rights reserved.
           </p>
           <div className="flex justify-center space-x-4 mt-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
+            <a href="https://github.com/hyadav2k" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
               <GitHub size={20} className="text-[var(--primary)]" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
+            <a href="https://www.linkedin.com/in/harshit-yadav-ab9626190/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
               <Linkedin size={20} className="text-[var(--primary)]" />
             </a>
-            <a href="mailto:example@gmail.com" aria-label="Email" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
+            <a href="mailto:harshityadav2k@gmail.com" aria-label="Email" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
               <Mail size={20} className="text-[var(--primary)]" />
             </a>
           </div>
