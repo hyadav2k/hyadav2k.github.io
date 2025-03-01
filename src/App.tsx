@@ -126,7 +126,12 @@ function App() {
                 <a href="#contact" className="px-6 py-3 gradient-button text-white rounded-full font-medium flex items-center justify-center">
                   Get in touch <ArrowRight size={18} className="ml-2" />
                 </a>
-                <a href="#" className="px-6 py-3 outline-button rounded-full font-medium flex items-center justify-center">
+                <a 
+                  href="https://docs.google.com/document/d/1ugBHLknxDVXSdD8NT2yZwD8Pma0C6-Ky/edit?usp=sharing&ouid=100795080474067402312&rtpof=true&sd=true" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-6 py-3 outline-button rounded-full font-medium flex items-center justify-center"
+                >
                   Download CV <Download size={18} className="ml-2" />
                 </a>
               </div>
@@ -152,7 +157,7 @@ function App() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
                   <img 
-                    src="dp.jpeg" 
+                    src="/dp.jpeg" 
                     alt="Harshit Yadav" 
                     className="w-full h-full object-cover"
                   />
