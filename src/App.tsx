@@ -157,7 +157,7 @@ function App() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
                   <img 
-                    src="/dp_ghibli.jpeg" 
+                    src="/dp_ghibli.png" 
                     alt="Harshit Yadav" 
                     className="w-full h-full object-cover"
                   />
