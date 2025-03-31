@@ -511,7 +511,7 @@ function App() {
                 <div className="p-8 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] text-white">
                   <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
                   <p className="mb-8">
-                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                    I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                   </p>
                   <div className="space-y-6">
                     <a href="mailto:harshityadav2k@gmail.com" className="flex items-center text-white hover:text-white/80 transition-colors">
