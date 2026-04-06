@@ -127,7 +127,7 @@ function App() {
                   Get in touch <ArrowRight size={18} className="ml-2" />
                 </a>
                 <a 
-                  href="https://docs.google.com/document/d/1ugBHLknxDVXSdD8NT2yZwD8Pma0C6-Ky/edit?usp=sharing&ouid=100795080474067402312&rtpof=true&sd=true" 
+                  href="/hyresume.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="px-6 py-3 outline-button rounded-full font-medium flex items-center justify-center"
@@ -163,29 +163,28 @@ function App() {
                   />
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-md">
-                  <p className="font-bold text-lg">2+ Years</p>
+                  <p className="font-bold text-lg">3+ Years</p>
                   <p className="text-sm text-[var(--text-light)]">Experience</p>
                 </div>
               </div>
               <div>
                 <h3 className="text-2xl font-bold mb-4">Machine Learning Engineer & Software Developer</h3>
                 <p className="text-lg mb-6 text-[var(--text-light)]">
-                  I'm a dedicated machine learning engineer with expertise in developing scalable ML services, optimizing model inference, and building 
-                  robust data pipelines. I specialize in creating high-performance systems that tackle complex data challenges.
+                  I'm a dedicated machine learning engineer with expertise in high-performance ML systems, LLMs, and distributed computing. I build
+                  scalable inference services, autonomous AI agents, and robust data pipelines that drive real business impact.
                 </p>
                 <p className="text-lg mb-6 text-[var(--text-light)]">
-                  My approach combines technical expertise with innovative solutions, allowing me to deliver optimized systems that significantly 
-                  improve performance and reduce costs. I'm constantly learning and exploring new technologies to stay at the 
-                  forefront of the industry.
+                  My approach combines technical depth with innovation — delivering systems that cut AWS costs by 60%, reduce MTTR by 90%, and
+                  accelerate research cycles by 85x. I'm constantly exploring new architectures to stay at the forefront of the industry.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="p-4 rounded-lg bg-white shadow-sm">
-                    <p className="font-bold text-xl text-[var(--primary)]">5+</p>
-                    <p className="text-sm text-[var(--text-light)]">Projects Completed</p>
+                    <p className="font-bold text-xl text-[var(--primary)]">85%</p>
+                    <p className="text-sm text-[var(--text-light)]">Research Cycle Faster</p>
                   </div>
                   <div className="p-4 rounded-lg bg-white shadow-sm">
-                    <p className="font-bold text-xl text-[var(--primary)]">90%</p>
-                    <p className="text-sm text-[var(--text-light)]">Services Coverage</p>
+                    <p className="font-bold text-xl text-[var(--primary)]">60%</p>
+                    <p className="text-sm text-[var(--text-light)]">AWS Cost Reduction</p>
                   </div>
                 </div>
                 <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection('experience'); }} className="inline-flex items-center font-medium text-[var(--primary)] hover:text-[var(--primary-dark)]">
@@ -210,20 +209,24 @@ function App() {
                 </div>
                 <p className="text-[var(--primary)] font-medium mb-2">NAVI Technologies, Bangalore</p>
                 <p className="text-[var(--text-light)] mb-4">
-                  Software Development, Machine Learning; Instructor in Miyagi - DataScience boot camp for freshers.
+                  High-Performance ML Systems, LLMs, Distributed Computing; Instructor in Fresher BootCamp.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Built a compliant automated DS workflow, enabling model experimentation, deployment, and monitoring using Temporal and MLflow for orchestration</span>
+                    <span className="text-[var(--text-light)]"><strong>Embedding Generator:</strong> Built an autonomous AI agent that researches ML embedding architectures from the web and auto-generates PyTorch training scripts — accelerating the research cycle by 85% and scaling tested architectures by 12x.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Engineered a multi-version model inference service supporting 40+ models on GPU infrastructure with 5ms latency and 10,000 RPM</span>
+                    <span className="text-[var(--text-light)]"><strong>Model Inference Service:</strong> Developed a Cython-optimized inference package supporting 40+ version-enabled GPU models with 5ms latency and 10k RPM; reduced AWS costs by 60% via dynamic batching and async gRPC with Triton Inference Server.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Developed a scalable monitoring and alerting service (MARS) for data science teams, serving 90% of services</span>
+                    <span className="text-[var(--text-light)]"><strong>Oncall Automation:</strong> Architected a multi-agent system with LangGraph that investigates production alerts by extracting logs from K8s/Prometheus, cross-referencing historical incidents, and suggesting fixes — processing 100+ weekly alerts and reducing MTTR by 90%.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
+                    <span className="text-[var(--text-light)]"><strong>Data Aggregator Service:</strong> Engineered a high-performance distributed Kotlin data aggregator using topological sort for source consolidation, with gRPC, GraphQL, S3/Parquet, and Airflow pipelines.</span>
                   </li>
                 </ul>
               </div>
@@ -237,20 +240,20 @@ function App() {
                 </div>
                 <p className="text-[var(--primary)] font-medium mb-2">NAVI Technologies, Bangalore</p>
                 <p className="text-[var(--text-light)] mb-4">
-                  Software Development, Machine Learning; Awarded performance-based Navi Spearhead out of 40 DS team members.
+                  Software Development; Awarded Navi Spearhead out of 40 DS team members.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Re-architected model serving in Golang with the orchestrator pattern, achieving 80% AWS cost reduction and 95% latency drop</span>
+                    <span className="text-[var(--text-light)]"><strong>Model Inference Orchestrator:</strong> Architected model serving in Golang, achieving 80% AWS cost reduction and 95% latency drop; implemented model metadata management with Postgres, Redis, and Gocache.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Engineered a scalable, generic FastAPI service for hosting ML models, implementing async programming and SOLID principles</span>
+                    <span className="text-[var(--text-light)]">Built data pipelines with S3 and Kafka for data archival; used Prometheus for proactive monitoring across the model serving ecosystem.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Developed integrations with multiple feature stores and created self-service model automated onboarding platform</span>
+                    <span className="text-[var(--text-light)]">Developed a self-service model onboarding platform, enhancing deployment efficiency and model reliability across the DS team.</span>
                   </li>
                 </ul>
               </div>
@@ -269,15 +272,11 @@ function App() {
                 <ul className="space-y-2">
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Developed a Hindi Chatbot for Samsung Finance Service using RASA with NLU training datasets and domains</span>
+                    <span className="text-[var(--text-light)]">Developed a Hindi Chatbot for Samsung Finance using RASA with NLU training datasets and domains.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Created custom actions for multilingual support with language-agnostic core server and Entity Mapping</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Received a PPO from SRI Bangalore and mentored an intern during the internship</span>
+                    <span className="text-[var(--text-light)]">Created workflows for multilingual support via Rasa NLU servers; received a PPO and mentored an intern.</span>
                   </li>
                 </ul>
               </div>
@@ -321,6 +320,17 @@ function App() {
                     <span className="skill-tag">RASA</span>
                     <span className="skill-tag">PostgreSQL</span>
                     <span className="skill-tag">Kubernetes</span>
+                    <span className="skill-tag">Gin</span>
+                    <span className="skill-tag">LangGraph</span>
+                    <span className="skill-tag">LangChain</span>
+                    <span className="skill-tag">LangSmith</span>
+                    <span className="skill-tag">Qdrant</span>
+                    <span className="skill-tag">Triton</span>
+                    <span className="skill-tag">gRPC</span>
+                    <span className="skill-tag">GraphQL</span>
+                    <span className="skill-tag">Airflow</span>
+                    <span className="skill-tag">Locust</span>
+                    <span className="skill-tag">GOCD</span>
                   </div>
                 </div>
               </div>
@@ -339,6 +349,7 @@ function App() {
                     <span className="skill-tag">PyTorch</span>
                     <span className="skill-tag">Matplotlib</span>
                     <span className="skill-tag">Numba</span>
+                    <span className="skill-tag">Cython</span>
                   </div>
                 </div>
                 
@@ -425,11 +436,34 @@ function App() {
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">Deep Researcher</h3>
                   <p className="text-[var(--text-light)] mb-4">
-                    Cost-optimized, iterative web research system with confidential data handling using DeepSeek-R1 model and Azure AI.
+                    Cost-optimized multi-agent research system using LangChain with supervisor–sub-agent architecture. Achieves 30x cost reduction via parallelized task delegation to Minions, hybrid RAG with Qdrant, and 38% hallucination reduction through JSON schema enforcement.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">LangChain</span>
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Qdrant</span>
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">RAG</span>
                     <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Python</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Azure AI</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="project-card group">
+                <div className="relative overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    alt="LLM-based Underwriting" 
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">LLM-based Underwriting Platform</h3>
+                  <p className="text-[var(--text-light)] mb-4">
+                    Multi-agent underwriting platform in LangGraph with a meta-LLM aggregator and Critic Agent pattern — increasing monthly loan disbursals by 10–15Cr and improving approvals by 36 bps. Built proprietary document intelligence using RAG with Qdrant.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">LangGraph</span>
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Qdrant</span>
+                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">RAG</span>
                     <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">LLMs</span>
                   </div>
                 </div>
@@ -488,7 +522,7 @@ function App() {
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">SymPy</h3>
                   <p className="text-[var(--text-light)] mb-4">
-                    Designed, developed, and documented the DomainMatrix module, optimizing matrix operations for increased efficiency. Implemented new methods for Matrix, Core, Polys, Derivatives, and Integrals.
+                    Architected the DomainMatrix module, optimizing matrix operations for increased efficiency. Implemented new functionality across Matrix, Core, Polys, Derivatives, and Integrals modules.
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Python</span>
