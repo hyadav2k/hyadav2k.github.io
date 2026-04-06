@@ -111,23 +111,23 @@ function App() {
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <div className="inline-block px-4 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] font-medium mb-6 animate-fade-in">
-                <span>AI/Machine Learning Engineer</span>
+                <span>AI & LLM Engineer</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">
                 Hi, I'm <span className="text-[var(--primary)]">Harshit Yadav</span>
               </h1>
               <h2 className="text-xl md:text-2xl text-[var(--text-light)] mb-8 animate-fade-in delay-100">
-                Building intelligent systems that solve complex problems
+                Architecting autonomous AI agents and scalable ML systems
               </h2>
               <p className="text-lg text-[var(--text-light)] mb-10 animate-fade-in delay-200 max-w-2xl mx-auto">
-                I specialize in developing scalable machine learning solutions, optimizing model inference services, and creating robust data pipelines that transform ideas into powerful digital experiences.
+                I specialize in engineering multi-agent LLM architectures, optimizing and serving state-of-the-art models on GPUs, and building intelligent autonomous systems that drive business value.
               </p>
               <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in delay-300">
                 <a href="#contact" className="px-6 py-3 gradient-button text-white rounded-full font-medium flex items-center justify-center">
                   Get in touch <ArrowRight size={18} className="ml-2" />
                 </a>
                 <a 
-                  href="/hyresume.pdf" 
+                  href="https://github.com/hyadav2k/hyadav2k.github.io/blob/main/hyresume.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="px-6 py-3 outline-button rounded-full font-medium flex items-center justify-center"
@@ -168,14 +168,12 @@ function App() {
                 </div>
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-4">Machine Learning Engineer & Software Developer</h3>
+                <h3 className="text-2xl font-bold mb-4">AI & Machine Learning Engineer</h3>
                 <p className="text-lg mb-6 text-[var(--text-light)]">
-                  I'm a dedicated machine learning engineer with expertise in high-performance ML systems, LLMs, and distributed computing. I build
-                  scalable inference services, autonomous AI agents, and robust data pipelines that drive real business impact.
+                  I am an AI engineer and ML specialist with deep experience in Large Language Models (LLMs), multi-agent architectures (LangGraph, LangChain), and high-performance inference systems. I build autonomous AI agents, Production RAG pipelines, and scalable model serving infrastructure.
                 </p>
                 <p className="text-lg mb-6 text-[var(--text-light)]">
-                  My approach combines technical depth with innovation — delivering systems that cut AWS costs by 60%, reduce MTTR by 90%, and
-                  accelerate research cycles by 85x. I'm constantly exploring new architectures to stay at the forefront of the industry.
+                  My approach bridges the gap between state-of-the-art GenAI and robust distributed computing — delivering intelligent systems that cut AWS costs by 60%, reduce MTTR by 90%, and accelerate research iteration by 85x. I am constantly experimenting with the latest in agentic reasoning to push the boundaries of automation.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="p-4 rounded-lg bg-white shadow-sm">
