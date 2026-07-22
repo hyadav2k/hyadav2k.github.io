@@ -1,594 +1,421 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Github as GitHub, Linkedin, Mail, ExternalLink, Briefcase, GraduationCap, Code, User, Home, ArrowRight, Download, Sparkles } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import {
+  ArrowDownToLine,
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  Mail,
+  Menu,
+  X,
+} from 'lucide-react';
+
+const navigation = [
+  { id: 'research', label: 'Research' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'work', label: 'Selected work' },
+  { id: 'education', label: 'Education' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const research = [
+  {
+    number: '01',
+    title: 'Generative models for multi-step stock-price forecasting',
+    supervisor: 'Prof. Geetanjali Panda · Master’s thesis',
+    dates: 'Jan–Apr 2023',
+    summary:
+      'Compared recurrent and adversarial approaches for three-day-ahead equity forecasting across normal and high-volatility market regimes.',
+    details: [
+      'Engineered financial, macroeconomic, technical-indicator, Fourier, and news-sentiment features for rolling market windows.',
+      'Implemented bidirectional LSTM, GRU, GAN, and WGAN-GP models and evaluated their behavior with and without the 2020 regime shift.',
+      'Found WGAN-GP most resilient on the 2020-inclusive test set, while GAN performed best outside that period and surpassed the traditional baselines overall.',
+    ],
+    tags: ['Time-series forecasting', 'GAN', 'WGAN-GP', 'PyTorch'],
+    note: 'Presented to the Department of Mathematics, IIT Kharagpur',
+  },
+  {
+    number: '02',
+    title: 'Portfolio allocation under asymmetric dependence',
+    supervisor: 'Prof. Geetanjali Panda · Master’s thesis',
+    dates: 'Aug–Nov 2022',
+    summary:
+      'Studied how local, non-linear dependence estimates can improve portfolio construction across changing market conditions.',
+    details: [
+      'Implemented Local Gaussian Correlation estimation in R across six global asset classes and 463 monthly observations.',
+      'Built rolling-window portfolio backtests using adaptive local covariance estimates, transaction costs, and allocation constraints.',
+      'Compared local minimum-variance strategies with Markowitz and equal-weighted baselines using terminal wealth, Sharpe, Sortino, and Omega ratios.',
+    ],
+    tags: ['Local Gaussian Correlation', 'Portfolio optimization', 'R', 'Backtesting'],
+    note: 'Presented to the Department of Mathematics, IIT Kharagpur',
+  },
+  {
+    number: '03',
+    title: 'Crop-yield forecasting from climate and soil properties',
+    supervisor: 'Prof. Adway Mitra · Core AI research project',
+    dates: 'Dec 2021–Feb 2022',
+    summary:
+      'Explored multi-task learning for jointly estimating crop yield and related soil properties from climate reanalysis data.',
+    details: [
+      'Processed ERA5-Land climate variables into spatiotemporal frequency spectrograms and trained a 2D-CNN.',
+      'Jointly predicted six soil properties, including organic carbon, pH, total nitrogen, clay, sand, and cation exchange capacity.',
+      'Reduced organic-carbon prediction error by almost 50% versus single-target training; the CNN approach also outperformed PLS and Cubist baselines.',
+    ],
+    tags: ['Multi-task learning', '2D-CNN', 'ERA5-Land', 'Climate data'],
+    note: 'Individual implementation within a shared research project',
+  },
+];
+
+const roles = [
+  {
+    role: 'Software Development Engineer II · ML Systems',
+    company: 'Navi Technologies, Bengaluru',
+    dates: 'Sep 2024–Present',
+    bullets: [
+      'Built a Cython- and Triton-based inference stack for 40+ versioned GPU models, sustaining 10,000 requests per minute at 5 ms service latency while reducing AWS spend by 60%.',
+      'Developed a LangGraph incident-analysis system that correlates Kubernetes and Prometheus telemetry with historical incidents; it processes 100+ alerts each week and reduced mean time to resolution by 90%.',
+      'Created a research-to-prototype workflow for embedding architectures, cutting evaluation cycle time by 85% and increasing tested-model throughput by 12×.',
+      'Engineered a distributed Kotlin feature-aggregation service using dependency-graph execution, gRPC, GraphQL, S3, Parquet, and Airflow.',
+    ],
+  },
+  {
+    role: 'Software Development Engineer I',
+    company: 'Navi Technologies, Bengaluru',
+    dates: 'Jul 2023–Aug 2024',
+    bullets: [
+      'Architected a Go model-serving orchestrator and self-service onboarding platform, reducing serving latency by 95% and infrastructure cost by 80%.',
+      'Built archival and monitoring pipelines with S3, Kafka, PostgreSQL, Redis, and Prometheus; received the Navi Spearhead Award within the data science organization.',
+      'Mentored engineers and taught in Navi’s engineering fresher bootcamp.',
+    ],
+  },
+  {
+    role: 'Software Developer Intern',
+    company: 'Samsung Research Institute, Bengaluru',
+    dates: 'May–Jun 2022',
+    bullets: [
+      'Developed a Hindi conversational assistant for Samsung Finance using Rasa NLU, including training data, intents, entities, domains, and multilingual routing.',
+      'Mentored an incoming intern and received a pre-placement offer for a full-time software engineering role.',
+    ],
+  },
+];
+
+const selectedWork = [
+  {
+    kicker: 'Personal system',
+    title: 'Deep Researcher',
+    description:
+      'A cost-aware multi-agent research system with supervisor and specialist agents, hybrid retrieval through Qdrant, and schema-constrained outputs. Parallel delegation reduced cost by 30× and structured generation reduced measured hallucinations by 38%.',
+    meta: 'LangChain · Qdrant · RAG · Python',
+  },
+  {
+    kicker: 'Open source',
+    title: 'SymPy contributor',
+    description:
+      'Contributed methods, tests, and documentation across DomainMatrix, polynomial manipulation, core expressions, matrices, derivatives, and integrals. Recognized in SymPy’s official AUTHORS registry.',
+    meta: 'Python · Symbolic mathematics · Jan–Apr 2021',
+  },
+  {
+    kicker: 'Navi internal hackathon · 5th place',
+    title: 'LLM-assisted underwriting',
+    description:
+      'Built a LangGraph underwriting prototype with specialist analysis agents, a critic pattern, and retrieval-backed document intelligence. The project explored decision support for higher-throughput credit review.',
+    meta: 'LangGraph · Qdrant · Document intelligence',
+  },
+];
+
+const skillGroups = [
+  {
+    label: 'Programming',
+    value: 'Python, Go, Kotlin, C++, Cython, R, SQL',
+  },
+  {
+    label: 'ML & LLM systems',
+    value: 'PyTorch, Triton Inference Server, Ray, BentoML, LangGraph, LangChain, Qdrant, Rasa',
+  },
+  {
+    label: 'Distributed systems',
+    value: 'Kubernetes, Docker, gRPC, Kafka, Airflow, Redis, PostgreSQL, Prometheus, AWS S3',
+  },
+  {
+    label: 'Scientific computing',
+    value: 'NumPy, pandas, SymPy, Numba, Matplotlib',
+  },
+];
+
+const coursework = [
+  'Machine Learning, Artificial Intelligence, AI for Economics',
+  'Algorithms, Data Structures, Graph Theory, Discrete Structures',
+  'Probability & Statistics, Regression & Time Series, Operations Research',
+  'Linear Algebra, Real Analysis, Optimization Methods in Finance',
+  'Operating Systems, Systems Programming, Databases, Computer Architecture',
+];
 
 function App() {
-  const [activeSection, setActiveSection] = useState('home');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('research');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
-      // Determine active section based on scroll position
-      const sections = document.querySelectorAll('section[id]');
-      sections.forEach(section => {
-        const sectionTop = (section as HTMLElement).offsetTop - 100;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        const sectionId = section.getAttribute('id') || '';
-        
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-          setActiveSection(sectionId);
-        }
-      });
-    };
+    const sections = navigation
+      .map(({ id }) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrollY]);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActiveSection(visible.target.id);
+      },
+      { rootMargin: '-20% 0px -65%', threshold: [0, 0.2, 0.5] },
+    );
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-    setMobileMenuOpen(false);
-  };
-
-  const navLinks = [
-    { id: 'home', label: 'Home', icon: <Home size={18} /> },
-    { id: 'about', label: 'About', icon: <User size={18} /> },
-    { id: 'experience', label: 'Experience', icon: <Briefcase size={18} /> },
-    { id: 'skills', label: 'Skills', icon: <Code size={18} /> },
-    { id: 'education', label: 'Education', icon: <GraduationCap size={18} /> },
-    { id: 'projects', label: 'Projects', icon: <ExternalLink size={18} /> }
-  ];
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrollY > 50 ? 'glass-effect shadow-sm' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <a href="#home" className="text-xl font-bold text-[var(--text)] flex items-center">
-            <span className="mr-2 text-[var(--primary)]">Harshit</span> Yadav
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 text-[var(--accent)]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">Skip to content</a>
+
+      <header className="site-header">
+        <div className="site-container nav-row">
+          <a className="wordmark" href="#top" aria-label="Harshit Yadav, home">
+            <span>HY</span>
+            <strong>Harshit Yadav</strong>
           </a>
-          
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {navLinks.map(link => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className={`nav-link ${activeSection === link.id ? 'active font-medium' : ''}`}
+
+          <nav className="desktop-nav" aria-label="Primary navigation">
+            {navigation.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={activeSection === item.id ? 'active' : ''}
+                aria-current={activeSection === item.id ? 'location' : undefined}
               >
-                {link.label}
-              </button>
+                {item.label}
+              </a>
             ))}
           </nav>
-          
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-[var(--text)]"
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
+
+          <button
+            className="menu-button"
+            type="button"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
         </div>
-        
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden glass-effect absolute top-full left-0 right-0 shadow-md animate-fade-in">
-            <div className="container mx-auto px-6 py-4">
-              {navLinks.map((link, index) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollToSection(link.id)}
-                  className={`flex items-center w-full py-3 px-4 ${activeSection === link.id ? 'text-[var(--primary)] font-medium' : 'text-[var(--text)]'} animate-fade-in delay-${index * 100}`}
-                >
-                  <span className="mr-3">{link.icon}</span>
-                  {link.label}
-                </button>
-              ))}
-            </div>
-          </div>
+
+        {menuOpen && (
+          <nav className="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation">
+            {navigation.map((item) => (
+              <a key={item.id} href={`#${item.id}`} onClick={() => setMenuOpen(false)}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
         )}
       </header>
 
-      <main>
-        {/* Hero Section */}
-        <section id="home" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-block px-4 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] font-medium mb-6 animate-fade-in">
-                <span>AI & LLM Engineer</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">
-                Hi, I'm <span className="text-[var(--primary)]">Harshit Yadav</span>
-              </h1>
-              <h2 className="text-xl md:text-2xl text-[var(--text-light)] mb-8 animate-fade-in delay-100">
-                Architecting autonomous AI agents and scalable ML systems
-              </h2>
-              <p className="text-lg text-[var(--text-light)] mb-10 animate-fade-in delay-200 max-w-2xl mx-auto">
-                I specialize in engineering multi-agent LLM architectures, optimizing and serving state-of-the-art models on GPUs, and building intelligent autonomous systems that drive business value.
+      <main id="main-content">
+        <section className="hero" id="top">
+          <div className="site-container hero-grid">
+            <div className="hero-copy">
+              <p className="eyebrow">ML systems engineer · IIT Kharagpur</p>
+              <h1>I build efficient ML systems, grounded in research.</h1>
+              <p className="hero-lede">
+                I’m Harshit Yadav, a Mathematics and Computing graduate working across high-performance model serving, reliable LLM workflows, and applied machine learning.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in delay-300">
-                <a href="#contact" className="px-6 py-3 gradient-button text-white rounded-full font-medium flex items-center justify-center">
-                  Get in touch <ArrowRight size={18} className="ml-2" />
+              <p className="research-interests">
+                <strong>Research interests</strong>
+                Efficient ML systems, model inference, retrieval-augmented systems, LLM evaluation, and reliable deployment.
+              </p>
+              <div className="hero-actions">
+                <a className="primary-button" href="#research">
+                  View research <ArrowUpRight aria-hidden="true" />
                 </a>
-                <a 
-                  href="https://github.com/hyadav2k/hyadav2k.github.io/blob/main/hyresume.pdf" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="px-6 py-3 outline-button rounded-full font-medium flex items-center justify-center"
-                >
-                  Download CV <Download size={18} className="ml-2" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <button 
-              onClick={() => scrollToSection('about')}
-              className="p-2 rounded-full border border-[var(--border)] bg-white/80"
-              aria-label="Scroll down"
-            >
-              <ArrowRight size={20} className="transform rotate-90 text-[var(--primary)]" />
-            </button>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="section bg-[var(--secondary)] relative overflow-hidden">
-          <div className="animated-bg"></div>
-          <div className="container mx-auto px-6 relative z-10">
-            <h2 className="section-title">About Me</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="relative">
-                <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
-                  <img 
-                    src="/dp_ghibli.png" 
-                    alt="Harshit Yadav" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-md">
-                  <p className="font-bold text-lg">3+ Years</p>
-                  <p className="text-sm text-[var(--text-light)]">Experience</p>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-4">AI & Machine Learning Engineer</h3>
-                <p className="text-lg mb-6 text-[var(--text-light)]">
-                  I am an AI engineer and ML specialist with deep experience in Large Language Models (LLMs), multi-agent architectures (LangGraph, LangChain), and high-performance inference systems. I build autonomous AI agents, Production RAG pipelines, and scalable model serving infrastructure.
-                </p>
-                <p className="text-lg mb-6 text-[var(--text-light)]">
-                  My approach bridges the gap between state-of-the-art GenAI and robust distributed computing — delivering intelligent systems that cut AWS costs by 60%, reduce MTTR by 90%, and accelerate research iteration by 85x. I am constantly experimenting with the latest in agentic reasoning to push the boundaries of automation.
-                </p>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="p-4 rounded-lg bg-white shadow-sm">
-                    <p className="font-bold text-xl text-[var(--primary)]">85%</p>
-                    <p className="text-sm text-[var(--text-light)]">Research Cycle Faster</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-white shadow-sm">
-                    <p className="font-bold text-xl text-[var(--primary)]">60%</p>
-                    <p className="text-sm text-[var(--text-light)]">AWS Cost Reduction</p>
-                  </div>
-                </div>
-                <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection('experience'); }} className="inline-flex items-center font-medium text-[var(--primary)] hover:text-[var(--primary-dark)]">
-                  View my experience <ArrowRight size={18} className="ml-2" />
+                <a className="secondary-button" href="/hyresume.pdf" download>
+                  Résumé (PDF) <ArrowDownToLine aria-hidden="true" />
                 </a>
               </div>
             </div>
+
+            <aside className="profile-panel" aria-label="Profile summary">
+              <img
+                src="/profile.jpg"
+                alt="Portrait of Harshit Yadav"
+                width="720"
+                height="720"
+              />
+              <div className="profile-caption">
+                <p>Based in Bengaluru, India</p>
+                <div className="profile-links">
+                  <a href="mailto:harshityadav2k@gmail.com" aria-label="Email Harshit Yadav"><Mail aria-hidden="true" /></a>
+                  <a href="https://github.com/hyadav2k" target="_blank" rel="noreferrer" aria-label="Harshit Yadav on GitHub"><Github aria-hidden="true" /></a>
+                  <a href="https://www.linkedin.com/in/harshit-yadav-ab9626190/" target="_blank" rel="noreferrer" aria-label="Harshit Yadav on LinkedIn"><Linkedin aria-hidden="true" /></a>
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
 
-        {/* Experience Section */}
-        <section id="experience" className="section">
-          <div className="container mx-auto px-6">
-            <h2 className="section-title">Work Experience</h2>
-            <div className="max-w-3xl">
-              <div className="timeline-item">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                  <h3 className="text-xl font-semibold">Machine Learning Engineer - 2</h3>
-                  <span className="inline-block px-3 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] text-sm font-medium">
-                    Sept 2024 - Present
-                  </span>
-                </div>
-                <p className="text-[var(--primary)] font-medium mb-2">NAVI Technologies, Bangalore</p>
-                <p className="text-[var(--text-light)] mb-4">
-                  High-Performance ML Systems, LLMs, Distributed Computing; Instructor in Fresher BootCamp.
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]"><strong>Embedding Generator:</strong> Built an autonomous AI agent that researches ML embedding architectures from the web and auto-generates PyTorch training scripts — accelerating the research cycle by 85% and scaling tested architectures by 12x.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]"><strong>Model Inference Service:</strong> Developed a Cython-optimized inference package supporting 40+ version-enabled GPU models with 5ms latency and 10k RPM; reduced AWS costs by 60% via dynamic batching and async gRPC with Triton Inference Server.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]"><strong>Oncall Automation:</strong> Architected a multi-agent system with LangGraph that investigates production alerts by extracting logs from K8s/Prometheus, cross-referencing historical incidents, and suggesting fixes — processing 100+ weekly alerts and reducing MTTR by 90%.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]"><strong>Data Aggregator Service:</strong> Engineered a high-performance distributed Kotlin data aggregator using topological sort for source consolidation, with gRPC, GraphQL, S3/Parquet, and Airflow pipelines.</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div className="timeline-item">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                  <h3 className="text-xl font-semibold">Machine Learning Engineer - 1</h3>
-                  <span className="inline-block px-3 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] text-sm font-medium">
-                    July 2023 - Aug 2024
-                  </span>
-                </div>
-                <p className="text-[var(--primary)] font-medium mb-2">NAVI Technologies, Bangalore</p>
-                <p className="text-[var(--text-light)] mb-4">
-                  Software Development; Awarded Navi Spearhead out of 40 DS team members.
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]"><strong>Model Inference Orchestrator:</strong> Architected model serving in Golang, achieving 80% AWS cost reduction and 95% latency drop; implemented model metadata management with Postgres, Redis, and Gocache.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Built data pipelines with S3 and Kafka for data archival; used Prometheus for proactive monitoring across the model serving ecosystem.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Developed a self-service model onboarding platform, enhancing deployment efficiency and model reliability across the DS team.</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div className="timeline-item">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                  <h3 className="text-xl font-semibold">Software Developer Intern</h3>
-                  <span className="inline-block px-3 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] text-sm font-medium">
-                    May 2022 - June 2022
-                  </span>
-                </div>
-                <p className="text-[var(--primary)] font-medium mb-2">Samsung Research Institute, Bangalore</p>
-                <p className="text-[var(--text-light)] mb-4">
-                  Software Development, Natural Language Understanding, Machine Learning
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Developed a Hindi Chatbot for Samsung Finance using RASA with NLU training datasets and domains.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-[var(--primary)] mt-2 mr-2"></span>
-                    <span className="text-[var(--text-light)]">Created workflows for multilingual support via Rasa NLU servers; received a PPO and mentored an intern.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Skills Section */}
-        <section id="skills" className="section bg-[var(--secondary)] relative overflow-hidden">
-          <div className="animated-bg"></div>
-          <div className="container mx-auto px-6 relative z-10">
-            <h2 className="section-title">Skills & Expertise</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <section className="section research-section" id="research">
+          <div className="site-container">
+            <div className="section-heading">
+              <p className="section-index">01</p>
               <div>
-                <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <Code size={20} className="mr-2 text-[var(--primary)]" />
-                    Programming Languages
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="skill-tag">Go</span>
-                    <span className="skill-tag">Kotlin</span>
-                    <span className="skill-tag">Python</span>
-                    <span className="skill-tag">C/C++</span>
-                    <span className="skill-tag">MySQL</span>
-                    <span className="skill-tag">HTML/JS</span>
-                  </div>
-                </div>
-                
-                <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <Briefcase size={20} className="mr-2 text-[var(--primary)]" />
-                    Frameworks & Tools
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="skill-tag">SpringBoot</span>
-                    <span className="skill-tag">Docker</span>
-                    <span className="skill-tag">FastAPI</span>
-                    <span className="skill-tag">Ray</span>
-                    <span className="skill-tag">BentoML</span>
-                    <span className="skill-tag">RASA</span>
-                    <span className="skill-tag">PostgreSQL</span>
-                    <span className="skill-tag">Kubernetes</span>
-                    <span className="skill-tag">Gin</span>
-                    <span className="skill-tag">LangGraph</span>
-                    <span className="skill-tag">LangChain</span>
-                    <span className="skill-tag">LangSmith</span>
-                    <span className="skill-tag">Qdrant</span>
-                    <span className="skill-tag">Triton</span>
-                    <span className="skill-tag">gRPC</span>
-                    <span className="skill-tag">GraphQL</span>
-                    <span className="skill-tag">Airflow</span>
-                    <span className="skill-tag">Locust</span>
-                    <span className="skill-tag">GOCD</span>
-                  </div>
-                </div>
+                <p className="eyebrow">Supervised research</p>
+                <h2>Research experience</h2>
+                <p>Three projects spanning financial modelling, deep learning, and climate data.</p>
               </div>
-              
+            </div>
+
+            <div className="research-list">
+              {research.map((project) => (
+                <article className="research-entry" key={project.title}>
+                  <p className="entry-number">{project.number}</p>
+                  <div className="research-content">
+                    <div className="research-title-row">
+                      <div>
+                        <h3>{project.title}</h3>
+                        <p className="entry-meta">{project.supervisor}</p>
+                      </div>
+                      <time>{project.dates}</time>
+                    </div>
+                    <p className="research-summary">{project.summary}</p>
+                    <ul>
+                      {project.details.map((detail) => <li key={detail}>{detail}</li>)}
+                    </ul>
+                    <div className="entry-footer">
+                      <p>{project.tags.join(' · ')}</p>
+                      <p>{project.note}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="experience">
+          <div className="site-container">
+            <div className="section-heading">
+              <p className="section-index">02</p>
               <div>
-                <div className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-[var(--primary)]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
-                    Libraries & ML Packages
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="skill-tag">C++ STL</span>
-                    <span className="skill-tag">SymPy</span>
-                    <span className="skill-tag">NumPy</span>
-                    <span className="skill-tag">Pandas</span>
-                    <span className="skill-tag">PyTorch</span>
-                    <span className="skill-tag">Matplotlib</span>
-                    <span className="skill-tag">Numba</span>
-                    <span className="skill-tag">Cython</span>
+                <p className="eyebrow">From models to production</p>
+                <h2>Professional experience</h2>
+                <p>Selected work in inference, distributed systems, and engineering enablement.</p>
+              </div>
+            </div>
+
+            <div className="role-list">
+              {roles.map((role) => (
+                <article className="role-entry" key={`${role.company}-${role.role}`}>
+                  <div className="role-heading">
+                    <div>
+                      <h3>{role.role}</h3>
+                      <p>{role.company}</p>
+                    </div>
+                    <time>{role.dates}</time>
                   </div>
+                  <ul>
+                    {role.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+                  </ul>
+                </article>
+              ))}
+            </div>
+
+            <div className="skills-grid" aria-label="Technical skills">
+              {skillGroups.map((group) => (
+                <div key={group.label}>
+                  <h3>{group.label}</h3>
+                  <p>{group.value}</p>
                 </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <User size={20} className="mr-2 text-[var(--primary)]" />
-                    Cloud & Infrastructure
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="skill-tag">AWS S3</span>
-                    <span className="skill-tag">Redis</span>
-                    <span className="skill-tag">Kafka</span>
-                    <span className="skill-tag">Airflow</span>
-                    <span className="skill-tag">CUDA</span>
-                    <span className="skill-tag">Azure AI Services</span>
-                  </div>
-                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section work-section" id="work">
+          <div className="site-container">
+            <div className="section-heading">
+              <p className="section-index">03</p>
+              <div>
+                <p className="eyebrow">Outside the day-to-day</p>
+                <h2>Selected work</h2>
+                <p>Personal systems, open source, and a bounded hackathon prototype.</p>
+              </div>
+            </div>
+
+            <div className="work-list">
+              {selectedWork.map((item) => (
+                <article key={item.title}>
+                  <p className="work-kicker">{item.kicker}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <p className="work-meta">{item.meta}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="education">
+          <div className="site-container">
+            <div className="section-heading">
+              <p className="section-index">04</p>
+              <div>
+                <p className="eyebrow">Academic foundation</p>
+                <h2>Education</h2>
+              </div>
+            </div>
+
+            <div className="education-grid">
+              <div className="degree-block">
+                <p className="education-date">2018–2023</p>
+                <h3>Integrated M.Sc. in Mathematics and Computing</h3>
+                <p className="institution">Indian Institute of Technology Kharagpur</p>
+                <p>CGPA 8.00/10 · INSPIRE Scholar · JEE Advanced top 1.7%</p>
+              </div>
+
+              <div className="coursework-block">
+                <h3>Selected coursework</h3>
+                <ul>
+                  {coursework.map((course) => <li key={course}>{course}</li>)}
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Education Section */}
-        <section id="education" className="section">
-          <div className="container mx-auto px-6">
-            <h2 className="section-title">Education</h2>
-            <div className="max-w-3xl">
-              <div className="timeline-item">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                  <h3 className="text-xl font-semibold">Integrated Bachelor and Master of Science</h3>
-                  <span className="inline-block px-3 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] text-sm font-medium">
-                    2018 - 2023
-                  </span>
-                </div>
-                <p className="text-[var(--primary)] font-medium mb-2">Indian Institute of Technology (IIT), Kharagpur</p>
-                <div className="p-4 bg-white rounded-lg shadow-sm mt-4">
-                  <p className="text-[var(--text-light)]">
-                    Department of Mathematics with CGPA of 8.00. Awarded INSPIRE scholarship for Innovation in Science Pursuit.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Mathematics</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">INSPIRE Scholar</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">IIT Kharagpur</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="timeline-item">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                  <h3 className="text-xl font-semibold">All India Senior School Certificate Examination (Class 12)</h3>
-                  <span className="inline-block px-3 py-1 rounded-full bg-[var(--primary-light)]/10 text-[var(--primary)] text-sm font-medium">
-                    2018
-                  </span>
-                </div>
-                <p className="text-[var(--primary)] font-medium mb-2">SR Public Senior Secondary School, CBSE</p>
-                <div className="p-4 bg-white rounded-lg shadow-sm mt-4">
-                  <p className="text-[var(--text-light)]">
-                    Graduated with 94.3% aggregate. Secured top 1.7% rank in IIT-JEE Advanced and top 0.4% rank in IIT-JEE Mains.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">CBSE</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">JEE Top Ranks</span>
-                  </div>
-                </div>
-              </div>
+        <section className="contact-section" id="contact">
+          <div className="site-container contact-grid">
+            <div>
+              <p className="eyebrow">Contact</p>
+              <h2>Let’s talk about research and reliable ML systems.</h2>
             </div>
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section id="projects" className="section bg-[var(--secondary)] relative overflow-hidden">
-          <div className="animated-bg"></div>
-          <div className="container mx-auto px-6 relative z-10">
-            <h2 className="section-title">Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="project-card group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="Deep Researcher" 
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Deep Researcher</h3>
-                  <p className="text-[var(--text-light)] mb-4">
-                    Cost-optimized multi-agent research system using LangChain with supervisor–sub-agent architecture. Achieves 30x cost reduction via parallelized task delegation to Minions, hybrid RAG with Qdrant, and 38% hallucination reduction through JSON schema enforcement.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">LangChain</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Qdrant</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">RAG</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Python</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="project-card group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="LLM-based Underwriting" 
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">LLM-based Underwriting Platform</h3>
-                  <p className="text-[var(--text-light)] mb-4">
-                    Multi-agent underwriting platform in LangGraph with a meta-LLM aggregator and Critic Agent pattern — increasing monthly loan disbursals by 10–15Cr and improving approvals by 36 bps. Built proprietary document intelligence using RAG with Qdrant.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">LangGraph</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Qdrant</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">RAG</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">LLMs</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="project-card group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="Medbot for Coronavirus" 
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Medbot for Coronavirus</h3>
-                  <p className="text-[var(--text-light)] mb-4">
-                    An interactive chatbot to answer coronavirus-related queries using RDF/OWL, AIML, and SWRLAPI technologies.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">RDF/OWL</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">AIML</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">SWRLAPI</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="project-card group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="TweeSents" 
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">TweeSents</h3>
-                  <p className="text-[var(--text-light)] mb-4">
-                    Location-based Twitter sentiment analysis service for classifying tweets and analyzing user behavior patterns.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Python</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Twitter API</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Azure</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="project-card group">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                    alt="SymPy" 
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">SymPy</h3>
-                  <p className="text-[var(--text-light)] mb-4">
-                    Architected the DomainMatrix module, optimizing matrix operations for increased efficiency. Implemented new functionality across Matrix, Core, Polys, Derivatives, and Integrals modules.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Python</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Algorithms</span>
-                    <span className="text-xs bg-[var(--primary-light)]/10 text-[var(--primary)] px-2 py-1 rounded-full">Open Source</span>
-                  </div>
-                  <p className="text-xs text-[var(--text-light)]">Jan 2021 - Apr 2021</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="section">
-          <div className="container mx-auto px-6">
-            <h2 className="section-title">Get In Touch</h2>
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                <div className="p-8 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] text-white">
-                  <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-                  <p className="mb-8">
-                    I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-                  </p>
-                  <div className="space-y-6">
-                    <a href="mailto:harshityadav2k@gmail.com" className="flex items-center text-white hover:text-white/80 transition-colors">
-                      <Mail size={20} className="mr-3" />
-                      harshityadav2k@gmail.com
-                    </a>
-                    <a href="https://github.com/hyadav2k" target="_blank" rel="noopener noreferrer" className="flex items-center text-white hover:text-white/80 transition-colors">
-                      <GitHub size={20} className="mr-3" />
-                      GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/harshit-yadav-ab9626190/" target="_blank" rel="noopener noreferrer" className="flex items-center text-white hover:text-white/80 transition-colors">
-                      <Linkedin size={20} className="mr-3" />
-                      LinkedIn
-                    </a>
-                  </div>
-                </div>
+            <div className="contact-copy">
+              <p>
+                I’m happy to discuss graduate study, applied ML research, open-source work, or systems problems at the boundary of models and production.
+              </p>
+              <a className="contact-email" href="mailto:harshityadav2k@gmail.com">
+                harshityadav2k@gmail.com <ArrowUpRight aria-hidden="true" />
+              </a>
+              <div className="contact-links">
+                <a href="https://github.com/hyadav2k" target="_blank" rel="noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>
+                <a href="https://www.linkedin.com/in/harshit-yadav-ab9626190/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>
               </div>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-[var(--secondary)] py-8">
-        <div className="container mx-auto px-6 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <a href="#home" className="text-xl font-bold text-[var(--text)] flex items-center">
-              <span className="mr-2 text-[var(--primary)]">Harshit</span> Yadav
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2 text-[var(--accent)]"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>
-            </a>
-          </div>
-          <p className="text-[var(--text-light)] mb-4">
-            &copy; {new Date().getFullYear()} Harshit Yadav. All rights reserved.
-          </p>
-          <div className="flex justify-center space-x-4 mt-4">
-            <a href="https://github.com/hyadav2k" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
-              <GitHub size={20} className="text-[var(--primary)]" />
-            </a>
-            <a href="https://www.linkedin.com/in/harshit-yadav-ab9626190/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
-              <Linkedin size={20} className="text-[var(--primary)]" />
-            </a>
-            <a href="mailto:harshityadav2k@gmail.com" aria-label="Email" className="p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow">
-              <Mail size={20} className="text-[var(--primary)]" />
-            </a>
-          </div>
+      <footer className="site-footer">
+        <div className="site-container footer-row">
+          <p>© {new Date().getFullYear()} Harshit Yadav</p>
+          <a href="#top">Back to top ↑</a>
         </div>
       </footer>
     </div>

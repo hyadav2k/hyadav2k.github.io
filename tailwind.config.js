@@ -4,16 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--primary)',
-        secondary: 'var(--secondary)',
-        text: 'var(--text)'
+        paper: 'var(--paper)',
+        ink: 'var(--ink)',
+        green: 'var(--green)',
+        rust: 'var(--rust)',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif']
+        sans: ['IBM Plex Sans', 'sans-serif'],
+        serif: ['IBM Plex Serif', 'serif'],
       },
-      animation: {
-        'fade-in': 'fadeIn 0.8s ease forwards'
-      }
     },
   },
   plugins: [],
