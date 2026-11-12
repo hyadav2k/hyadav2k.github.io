@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 
 const navigation = [
+  { id: 'aira', label: 'AIRA' },
   { id: 'research', label: 'Research' },
   { id: 'experience', label: 'Experience' },
   { id: 'work', label: 'Selected work' },
@@ -67,18 +68,19 @@ const research = [
 
 const roles = [
   {
-    role: 'Software Development Engineer II · ML Systems',
+    role: 'Machine Learning Engineer II',
     company: 'Navi Technologies, Bengaluru',
     dates: 'Sep 2024–Present',
     bullets: [
-      'Built a Cython- and Triton-based inference stack for 40+ versioned GPU models, sustaining 10,000 requests per minute at 5 ms service latency while reducing AWS spend by 60%.',
-      'Developed a LangGraph incident-analysis system that correlates Kubernetes and Prometheus telemetry with historical incidents; it processes 100+ alerts each week and reduced mean time to resolution by 90%.',
-      'Created a research-to-prototype workflow for embedding architectures, cutting evaluation cycle time by 85% and increasing tested-model throughput by 12×.',
+      'Built Cython/Triton inference for 100+ versioned models at 100K requests per minute and 10 ms latency, reducing AWS cost by 60%; established online and Databricks batch-scoring paths.',
+      'Conceived and co-built a production LangGraph incident workflow for 100+ weekly alerts, cutting MTTR by approximately 90% for automated alert classes against historical manual baselines. Added human approval for novel failures and post-remediation health checks.',
+      'Built a production embedding-research agent that generates PyTorch pipelines, shortening research cycles by 85% and increasing tested architectures by 12×, with versioned prompts, evaluation checks, retries, and LangSmith monitoring.',
+      'Co-designed and launched an alternate-data underwriting pilot for previously rejected applicants, contributing to INR 10–15 crore in incremental monthly disbursals and a 36 basis-point approval lift. Built evidence-backed LangGraph/Qdrant workflows and reduced vendor costs by INR 10–15 lakh per month.',
       'Engineered a distributed Kotlin feature-aggregation service using dependency-graph execution, gRPC, GraphQL, S3, Parquet, and Airflow.',
     ],
   },
   {
-    role: 'Software Development Engineer I',
+    role: 'Machine Learning Engineer I',
     company: 'Navi Technologies, Bengaluru',
     dates: 'Jul 2023–Aug 2024',
     bullets: [
@@ -96,6 +98,14 @@ const roles = [
       'Mentored an incoming intern and received a pre-placement offer for a full-time software engineering role.',
     ],
   },
+  {
+    role: 'Full Stack Developer Intern',
+    company: 'Leoforce Technologies, Hyderabad',
+    dates: 'May–Jun 2019',
+    bullets: [
+      'Built employee feedback and performance dashboards using JavaScript and SQL-backed services.',
+    ],
+  },
 ];
 
 const selectedWork = [
@@ -103,8 +113,8 @@ const selectedWork = [
     kicker: 'Personal system',
     title: 'Deep Researcher',
     description:
-      'A cost-aware multi-agent research system with supervisor and specialist agents, hybrid retrieval through Qdrant, and schema-constrained outputs. Parallel delegation reduced cost by 30× and structured generation reduced measured hallucinations by 38%.',
-    meta: 'LangChain · Qdrant · RAG · Python',
+      'A cost-aware multi-agent research system with supervisor and specialist agents, hybrid retrieval through Qdrant, and schema-constrained outputs. Combined Tavily web research with private-document retrieval and citation-backed reports.',
+    meta: 'LangChain · Tavily · Qdrant · Python',
   },
   {
     kicker: 'Open source',
@@ -113,13 +123,7 @@ const selectedWork = [
       'Contributed methods, tests, and documentation across DomainMatrix, polynomial manipulation, core expressions, matrices, derivatives, and integrals. Recognized in SymPy’s official AUTHORS registry.',
     meta: 'Python · Symbolic mathematics · Jan–Apr 2021',
   },
-  {
-    kicker: 'Navi internal hackathon · 5th place',
-    title: 'LLM-assisted underwriting',
-    description:
-      'Built a LangGraph underwriting prototype with specialist analysis agents, a critic pattern, and retrieval-backed document intelligence. The project explored decision support for higher-throughput credit review.',
-    meta: 'LangGraph · Qdrant · Document intelligence',
-  },
+
 ];
 
 const skillGroups = [
@@ -129,11 +133,11 @@ const skillGroups = [
   },
   {
     label: 'ML & LLM systems',
-    value: 'PyTorch, Triton Inference Server, Ray, BentoML, LangGraph, LangChain, Qdrant, Rasa',
+    value: 'PyTorch, Triton Inference Server, LangGraph, LangChain, LangSmith, Qdrant, Rasa',
   },
   {
     label: 'Distributed systems',
-    value: 'Kubernetes, Docker, gRPC, Kafka, Airflow, Redis, PostgreSQL, Prometheus, AWS S3',
+    value: 'Kubernetes, Docker, gRPC, Kafka, Airflow, Databricks, Redis, PostgreSQL, Prometheus, Grafana, AWS',
   },
   {
     label: 'Scientific computing',
@@ -151,7 +155,7 @@ const coursework = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('research');
+  const [activeSection, setActiveSection] = useState('aira');
 
   useEffect(() => {
     const sections = navigation
@@ -223,20 +227,20 @@ function App() {
         <section className="hero" id="top">
           <div className="site-container hero-grid">
             <div className="hero-copy">
-              <p className="eyebrow">ML systems engineer · IIT Kharagpur</p>
-              <h1>I build efficient ML systems, grounded in research.</h1>
+              <p className="eyebrow">Machine learning engineer · Building AIRA</p>
+              <h1>I build ML systems that turn ideas into evidence.</h1>
               <p className="hero-lede">
-                I’m Harshit Yadav, a Mathematics and Computing graduate working across high-performance model serving, reliable LLM workflows, and applied machine learning.
+                I’m Harshit Yadav, a machine learning engineer at Navi and IIT Kharagpur graduate. I build production inference platforms and agent workflows. With AIRA, I’m bringing that experience to reliable ML experimentation.
               </p>
               <p className="research-interests">
-                <strong>Research interests</strong>
-                Efficient ML systems, model inference, retrieval-augmented systems, LLM evaluation, and reliable deployment.
+                <strong>Current focus</strong>
+                Research agents, independent evaluation, reproducible experiments, and production ML systems.
               </p>
               <div className="hero-actions">
-                <a className="primary-button" href="#research">
-                  View research <ArrowUpRight aria-hidden="true" />
+                <a className="primary-button" href="#aira">
+                  Explore AIRA <ArrowUpRight aria-hidden="true" />
                 </a>
-                <a className="secondary-button" href="/hyresume.pdf" download>
+                <a className="secondary-button" href="/harshityadavai.pdf" download>
                   Résumé (PDF) <ArrowDownToLine aria-hidden="true" />
                 </a>
               </div>
@@ -261,10 +265,47 @@ function App() {
           </div>
         </section>
 
-        <section className="section research-section" id="research">
+        <section className="section aira-section" id="aira" aria-labelledby="aira-title">
           <div className="site-container">
             <div className="section-heading">
               <p className="section-index">01</p>
+              <div>
+                <p className="eyebrow">Current project · Founder & builder</p>
+                <h2 id="aira-title">AIRA</h2>
+                <p>A research engineer that builds on every experiment.</p>
+              </div>
+            </div>
+            <div className="aira-intro">
+              <div>
+                <p className="aira-lede">From a model and a question to a result you can inspect, reproduce, and build on.</p>
+                <p>I’m building AIRA, with an experiment workflow called Runex, to help scientists investigate model improvements. The local workflow brings together approved hypotheses, bounded execution, independent evaluation, and reproducible artifacts.</p>
+                <p>The motivation comes from building ML infrastructure and an embedding-research agent at Navi: generating code is one step. Establishing what worked, under which conditions, and what to try next is the larger engineering problem.</p>
+                <a className="secondary-button" href="https://runex-goaira.vercel.app/" target="_blank" rel="noreferrer">Visit Runex <ArrowUpRight aria-hidden="true" /></a>
+              </div>
+              <aside className="aira-status">
+                <p className="work-kicker">Working foundation · Experimental</p>
+                <h3>Supervised local research</h3>
+                <p>Local experiment workflows support controlled execution, independent scoring, protected final evaluation, and fitted exports with replay verification. Project history preserves evaluated outcomes for compatible later work.</p>
+                <p>The newer research-project route adds objective-first intake and workspace preparation. It remains supervised, with background execution disabled for that route.</p>
+              </aside>
+            </div>
+            <ol className="experiment-flow" aria-label="AIRA experiment workflow">
+              <li><span>01 / Frame</span><h3>Establish the baseline</h3><p>Bring the model, data, and goal. Define the evaluation and inspect relevant project history.</p></li>
+              <li><span>02 / Investigate</span><h3>Test approved ideas</h3><p>Implement competing hypotheses in isolated workspaces, within explicit budgets and permissions.</p></li>
+              <li><span>03 / Evaluate</span><h3>Follow the evidence</h3><p>Compare measured outcomes, refine or stop, and retain the baseline when a change is not justified.</p></li>
+              <li><span>04 / Build on it</span><h3>Keep a reproducible record</h3><p>Preserve code, artifacts, and evaluated outcomes so the next experiment can start from earlier work.</p></li>
+            </ol>
+            <div className="aira-vision">
+              <p className="work-kicker">Product vision · Work ahead</p>
+              <p>A general research engineer that can adopt an unfamiliar repository or start from an objective, investigate new approaches, and carry evidence across iterations. Broader model adapters, autonomous continuation, shared team knowledge, and production-feedback integrations remain work ahead.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section research-section" id="research">
+          <div className="site-container">
+            <div className="section-heading">
+              <p className="section-index">02</p>
               <div>
                 <p className="eyebrow">Supervised research</p>
                 <h2>Research experience</h2>
@@ -302,7 +343,7 @@ function App() {
         <section className="section" id="experience">
           <div className="site-container">
             <div className="section-heading">
-              <p className="section-index">02</p>
+              <p className="section-index">03</p>
               <div>
                 <p className="eyebrow">From models to production</p>
                 <h2>Professional experience</h2>
@@ -341,11 +382,11 @@ function App() {
         <section className="section work-section" id="work">
           <div className="site-container">
             <div className="section-heading">
-              <p className="section-index">03</p>
+              <p className="section-index">04</p>
               <div>
                 <p className="eyebrow">Outside the day-to-day</p>
                 <h2>Selected work</h2>
-                <p>Personal systems, open source, and a bounded hackathon prototype.</p>
+                <p>Research tools and contributions to scientific Python.</p>
               </div>
             </div>
 
@@ -365,7 +406,7 @@ function App() {
         <section className="section" id="education">
           <div className="site-container">
             <div className="section-heading">
-              <p className="section-index">04</p>
+              <p className="section-index">05</p>
               <div>
                 <p className="eyebrow">Academic foundation</p>
                 <h2>Education</h2>
@@ -375,7 +416,7 @@ function App() {
             <div className="education-grid">
               <div className="degree-block">
                 <p className="education-date">2018–2023</p>
-                <h3>Integrated M.Sc. in Mathematics and Computing</h3>
+                <h3>Integrated B.S./M.S. in Mathematics and Computing</h3>
                 <p className="institution">Indian Institute of Technology Kharagpur</p>
                 <p>CGPA 8.00/10 · INSPIRE Scholar · JEE Advanced top 1.7%</p>
               </div>
@@ -394,11 +435,11 @@ function App() {
           <div className="site-container contact-grid">
             <div>
               <p className="eyebrow">Contact</p>
-              <h2>Let’s talk about research and reliable ML systems.</h2>
+              <h2>Let’s build more reliable ML systems.</h2>
             </div>
             <div className="contact-copy">
               <p>
-                I’m happy to discuss graduate study, applied ML research, open-source work, or systems problems at the boundary of models and production.
+                I’m happy to discuss AIRA, research collaborations, agent workflows, or systems problems at the boundary of models and production.
               </p>
               <a className="contact-email" href="mailto:harshityadav2k@gmail.com">
                 harshityadav2k@gmail.com <ArrowUpRight aria-hidden="true" />

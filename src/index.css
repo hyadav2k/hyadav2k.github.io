@@ -811,3 +811,83 @@ h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Featured project uses the portfolio's existing paper, serif, and green palette. */
+.aira-section {
+  background: var(--paper-deep);
+}
+
+.aira-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.aira-lede {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.35;
+}
+
+.aira-status {
+  border-left: 2px solid var(--green);
+  padding-left: var(--space-4);
+}
+
+.aira-status p:last-child,
+.experiment-flow p {
+  color: var(--muted);
+}
+
+.experiment-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-4) 0 0;
+  margin: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.experiment-flow span {
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--green);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.experiment-flow h3 {
+  font-size: 1.15rem;
+}
+
+.aira-vision {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.aira-vision p:last-child {
+  margin-bottom: 0;
+}
+
+.work-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .aira-intro { grid-template-columns: 1fr; }
+  .experiment-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .experiment-flow { grid-template-columns: 1fr; gap: var(--space-3); }
+  .experiment-flow span { margin-bottom: var(--space-2); }
+  .aira-status { padding-left: var(--space-3); }
+  .aira-vision { padding: var(--space-3); }
+}
